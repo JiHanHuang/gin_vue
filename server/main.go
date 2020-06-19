@@ -11,8 +11,8 @@ import (
 	"github.com/JiHanHuang/gin_vue/pkg/gredis"
 	"github.com/JiHanHuang/gin_vue/pkg/logging"
 	"github.com/JiHanHuang/gin_vue/pkg/setting"
-	"github.com/JiHanHuang/gin_vue/routers"
 	"github.com/JiHanHuang/gin_vue/pkg/util"
+	"github.com/JiHanHuang/gin_vue/routers"
 )
 
 func init() {
@@ -23,12 +23,11 @@ func init() {
 	util.Setup()
 }
 
-// @title Golang Gin API
+// @title Golang Gin-VUE API
 // @version 1.0
-// @description An example of gin
+// @description An example of gin+vue
 // @termsOfService https://github.com/JiHanHuang/gin_vue
-// @license.name MIT
-// @license.url https://github.com/JiHanHuang/gin_vue/blob/master/LICENSE
+
 func main() {
 	gin.SetMode(setting.ServerSetting.RunMode)
 

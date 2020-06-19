@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	_ "github.com/JiHanHuang/gin_vue/docs"
-	"github.com/swaggo/gin-swagger"
+	_ "github.com/JiHanHuang/gin_vue/docs/swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
 	"github.com/JiHanHuang/gin_vue/middleware/jwt"
@@ -14,7 +14,7 @@ import (
 	"github.com/JiHanHuang/gin_vue/pkg/qrcode"
 	"github.com/JiHanHuang/gin_vue/pkg/upload"
 	"github.com/JiHanHuang/gin_vue/routers/api"
-	"github.com/JiHanHuang/gin_vue/routers/api/v1"
+	v1 "github.com/JiHanHuang/gin_vue/routers/api/v1"
 )
 
 // InitRouter initialize routing information
@@ -28,7 +28,7 @@ func InitRouter() *gin.Engine {
 	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
 
 	r.POST("/auth", api.GetAuth)
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
