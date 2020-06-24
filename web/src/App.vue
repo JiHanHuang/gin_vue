@@ -15,31 +15,37 @@
 <template>
     <div class="layout">
         <Sider :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+            <!-- <router-link to="/home">
+                <Icon type="ios-home"></Icon>
+                Home
+            </router-link> -->
             <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
+                <MenuItem name="4-1" to="/home">
+                    <Icon type="ios-home"></Icon>
+                    Home
+                </MenuItem>
                 <Submenu name="1">
                     <template slot="title">
-                        <Icon type="ios-navigate"></Icon>
-                        Item 1
+                        <Icon type="ios-keypad"></Icon>
+                        Item
                     </template>
-                    <MenuItem name="1-1">Option 1</MenuItem>
-                    <MenuItem name="1-2">Option 2</MenuItem>
-                    <MenuItem name="1-3">Option 3</MenuItem>
+                    <MenuItem name="1-1">Video</MenuItem>
+                    <MenuItem name="1-2">Manga</MenuItem>
                 </Submenu>
                 <Submenu name="2">
                     <template slot="title">
-                        <Icon type="ios-keypad"></Icon>
-                        Item 2
+                        <Icon type="md-cloud-download" />
+                        Download
                     </template>
-                    <MenuItem name="2-1">Option 1</MenuItem>
-                    <MenuItem name="2-2">Option 2</MenuItem>
+                    <MenuItem name="2-1" to="/video_download">Video</MenuItem>
+                    <MenuItem name="2-2" to="/video_download">迅雷</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template slot="title">
-                        <Icon type="ios-analytics"></Icon>
-                        Item 3
+                        <Icon type="md-heart-outline" />
+                        Other
                     </template>
-                    <MenuItem name="3-1">Option 1</MenuItem>
-                    <MenuItem name="3-2">Option 2</MenuItem>
+                    <MenuItem name="3-1" to="/hello">Hello</MenuItem>
                 </Submenu>
             </Menu>
         </Sider>
@@ -52,7 +58,9 @@
                     <BreadcrumbItem>Layout</BreadcrumbItem>
                 </Breadcrumb>
                 <Card>
-                    <div style="height: 600px">Content</div>
+                    <!-- 路由出口 -->
+                    <!-- 路由匹配到的组件将渲染在这里 -->
+                    <router-view></router-view>
                 </Card>
             </Content>
         </Layout>
@@ -61,6 +69,21 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      title: '探码科技'
+    }
+  },
+  methods: {
+    home () {
+      this.$router.push('/home')
+    }
+  },
+  computed: {
+    visiable () {
+      return ['/', '/home'].indexOf(this.$route.path) < 0
+    }
+  }
 }
 </script>
