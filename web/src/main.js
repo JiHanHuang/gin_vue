@@ -10,8 +10,6 @@ Vue.use(ViewUI)
 
 Vue.config.productionTip = false
 
-Vue.component('download', require('./components/_download'))
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
