@@ -29,7 +29,7 @@
                         <Icon type="ios-keypad"></Icon>
                         Item
                     </template>
-                    <MenuItem name="1-1">Video</MenuItem>
+                    <MenuItem name="1-1">Anime</MenuItem>
                     <MenuItem name="1-2">Manga</MenuItem>
                 </Submenu>
                 <Submenu name="2">
@@ -37,8 +37,8 @@
                         <Icon type="md-cloud-download" />
                         Download
                     </template>
-                    <MenuItem name="2-1" to="/video_download">Video</MenuItem>
-                    <MenuItem name="2-2" to="/video_download">迅雷</MenuItem>
+                    <MenuItem name="2-1" to="/video_download">V</MenuItem>
+                    <MenuItem name="2-2" to="/thunder_download">T</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template slot="title">
@@ -72,17 +72,7 @@ export default {
   name: 'App',
   data () {
     return {
-      title: '探码科技'
-    }
-  },
-  methods: {
-    home () {
-      this.$router.push('/home')
-    }
-  },
-  computed: {
-    visiable () {
-      return ['/', '/home'].indexOf(this.$route.path) < 0
+      title: 'JiHan'
     }
   }
 }
