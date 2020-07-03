@@ -18,6 +18,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1-0.20190510102335-877a9775f068 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/gomodule/redigo v2.0.1-0.20180401191855-9352ab68be13+incompatible
+	github.com/jackpal/bencode-go v1.0.0
 	github.com/jinzhu/gorm v0.0.0-20180213101209-6e1387b44c64
 	github.com/jinzhu/inflection v0.0.0-20170102125226-1c35d901db3d // indirect
 	github.com/jinzhu/now v1.0.1 // indirect
@@ -28,6 +29,7 @@ require (
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect
+	github.com/stretchr/testify v1.4.0
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.7
 	github.com/tealeg/xlsx v1.0.4-0.20180419195153-f36fa3be8893

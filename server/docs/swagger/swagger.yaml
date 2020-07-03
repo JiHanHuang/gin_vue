@@ -185,6 +185,35 @@ paths:
           schema:
             $ref: '#/definitions/app.Response'
       summary: Update article
+  /api/v1/download/torrent:
+    post:
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        type: string
+      - description: BTFile
+        in: query
+        name: file
+        type: string
+      - description: ID
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: TorrentDownload
+      tags:
+      - New
   /api/v1/tags:
     get:
       parameters:

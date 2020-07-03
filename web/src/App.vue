@@ -29,7 +29,7 @@
                         <Icon type="ios-keypad"></Icon>
                         Item
                     </template>
-                    <MenuItem name="1-1">Anime</MenuItem>
+                    <MenuItem name="1-1" to="/show/image_show">Anime</MenuItem>
                     <MenuItem name="1-2">Manga</MenuItem>
                 </Submenu>
                 <Submenu name="2">
@@ -37,8 +37,8 @@
                         <Icon type="md-cloud-download" />
                         Download
                     </template>
-                    <MenuItem name="2-1" to="/video_download">V</MenuItem>
-                    <MenuItem name="2-2" to="/thunder_download">T</MenuItem>
+                    <MenuItem name="2-1" to="/download/video_download">V</MenuItem>
+                    <MenuItem name="2-2" to="/download/thunder_download">T</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template slot="title">
@@ -53,9 +53,12 @@
             <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}"></Header>
             <Content :style="{padding: '0 16px 16px'}">
                 <Breadcrumb :style="{margin: '16px 0'}">
-                    <BreadcrumbItem>Home</BreadcrumbItem>
-                    <BreadcrumbItem>Components</BreadcrumbItem>
-                    <BreadcrumbItem>Layout</BreadcrumbItem>
+                    <BreadcrumbItem v-for="(item, index) in $route.meta" :key="index">
+                        <Icon v-if="item.icon" :type="item.icon" />
+                        <Icon v-else type="md-nutrition" />
+                        <router-link v-if="item.url" :to="item.url">{{item.name}}</router-link>
+                        <a v-else>{{item.name}}</a>
+                    </BreadcrumbItem>
                 </Breadcrumb>
                 <Card>
                     <!-- 路由出口 -->
@@ -72,7 +75,18 @@ export default {
   name: 'App',
   data () {
     return {
-      title: 'JiHan'
+      title: 'JiHan',
+      breadcrumbs: [
+        {path: 'home', name: 'Home'},
+        {path: 'imageShow', name: 'Anime'},
+        {path: 'video_download', name: 'V'},
+        {path: 'thunder_download', name: 'T'}
+      ]
+    }
+  },
+  methods: {
+    get (n) {
+      this.$router.push({name: n})
     }
   }
 }
