@@ -271,6 +271,41 @@
                 }
             }
         },
+        "/api/v1/download": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "New"
+                ],
+                "summary": "DownloadForm",
+                "parameters": [
+                    {
+                        "description": "Download",
+                        "name": "download",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/v1.DownloadForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/download/torrent": {
             "post": {
                 "produces": [
@@ -282,22 +317,28 @@
                 "summary": "TorrentDownload",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "Name",
                         "name": "name",
-                        "in": "query"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "BTFile",
                         "name": "file",
-                        "in": "query"
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
-                        "type": "integer",
                         "description": "ID",
                         "name": "id",
-                        "in": "query"
+                        "in": "body",
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -606,6 +647,23 @@
                     "type": "object"
                 },
                 "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.DownloadForm": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "downloadPath": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
                     "type": "string"
                 }
             }

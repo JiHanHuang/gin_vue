@@ -9,7 +9,6 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
-	"github.com/JiHanHuang/gin_vue/middleware/jwt"
 	"github.com/JiHanHuang/gin_vue/pkg/export"
 	"github.com/JiHanHuang/gin_vue/pkg/qrcode"
 	"github.com/JiHanHuang/gin_vue/pkg/upload"
@@ -32,7 +31,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
-	apiv1.Use(jwt.JWT())
+	//apiv1.Use(jwt.JWT())
 	{
 		//获取标签列表
 		apiv1.GET("/tags", v1.GetTags)
@@ -61,6 +60,7 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/articles/poster/generate", v1.GenerateArticlePoster)
 		//生成文章海报
 		apiv1.POST("/download/torrent", v1.TorrentDownload)
+		apiv1.POST("/download", v1.Download)
 	}
 
 	return r
