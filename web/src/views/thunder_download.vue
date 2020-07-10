@@ -1,10 +1,6 @@
 <template>
   <div>
-    <Card>
-    <h3>当前路径:</h3>
-    <Input v-model="value" placeholder="Enter something..." style="width: 300px" />
-    <Button>修改路径</Button>
-    </Card>
+    <create select-type="thunder"></create>
     <Card>
       <download vue-msg="thunder"></download>
     </Card>
@@ -13,6 +9,7 @@
 
 <script>
 import download from '@/components/download'
+import create from '@/components/create'
 export default {
   name: 'thunderDownload',
   data () {
@@ -20,7 +17,7 @@ export default {
       value: ''
     }
   },
-  components: {download}
+  components: {download, create}
 }
 </script>
 

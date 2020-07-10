@@ -357,6 +357,74 @@
                 }
             }
         },
+        "/api/v1/get": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "TorrentDownload",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "TpostForm",
+                "parameters": [
+                    {
+                        "description": "post",
+                        "name": "post",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/v1.TpostForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/tags": {
             "get": {
                 "produces": [
@@ -485,12 +553,12 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Import article tag",
+                "summary": "Import Image",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "Excel File",
-                        "name": "file",
+                        "description": "Image File",
+                        "name": "image",
                         "in": "formData",
                         "required": true
                     }
@@ -652,6 +720,23 @@
             }
         },
         "v1.DownloadForm": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "downloadPath": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.TpostForm": {
             "type": "object",
             "properties": {
                 "addr": {

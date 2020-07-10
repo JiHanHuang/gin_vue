@@ -10,7 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api/v1/':{                                // 要代理的接口名
+        target:'http://192.168.81.128:8000/api/v1/',   // 要代理的接口地址,这里是我的虚拟机
+        changeOrigin:true,                            // 允许跨域
+        pathRewrite:{'^/api/v1/':''}            // 接口名重写
+      }
+    },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

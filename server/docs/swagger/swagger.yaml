@@ -19,6 +19,17 @@ definitions:
       name:
         type: string
     type: object
+  v1.TpostForm:
+    properties:
+      addr:
+        type: string
+      downloadPath:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
 info:
   contact: {}
   description: An example of gin+vue
@@ -250,6 +261,49 @@ paths:
       summary: TorrentDownload
       tags:
       - New
+  /api/v1/get:
+    get:
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: TorrentDownload
+      tags:
+      - Test
+  /api/v1/post:
+    post:
+      parameters:
+      - description: post
+        in: body
+        name: post
+        schema:
+          $ref: '#/definitions/v1.TpostForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: TpostForm
+      tags:
+      - Test
   /api/v1/tags:
     get:
       parameters:
@@ -387,9 +441,9 @@ paths:
   /api/v1/tags/import:
     post:
       parameters:
-      - description: Excel File
+      - description: Image File
         in: formData
-        name: file
+        name: image
         required: true
         type: file
       produces:
@@ -403,7 +457,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/app.Response'
-      summary: Import article tag
+      summary: Import Image
   /auth:
     get:
       parameters:

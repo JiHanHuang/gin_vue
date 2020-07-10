@@ -61,6 +61,9 @@ func InitRouter() *gin.Engine {
 		//生成文章海报
 		apiv1.POST("/download/torrent", v1.TorrentDownload)
 		apiv1.POST("/download", v1.Download)
+		//test
+		apiv1.POST("/post", v1.Tpost)
+		apiv1.GET("/get", v1.Tget)
 	}
 
 	return r
