@@ -183,5 +183,4 @@ func UpFile(c *gin.Context) {
 		return
 	}
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
-
 }

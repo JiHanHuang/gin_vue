@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <Button type="text" size="large" @click="modal1 = true"><Icon type="md-add" size="30" /></Button>
     <Modal
     v-model="modal1"
@@ -11,13 +11,10 @@
     <Select v-model="model2" style="width:200px">
         <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
     </Select>
-    <h3>ID:</h3>
-    <Input v-model="id" placeholder="0" style="width: 300px" />
     <h3>名称:</h3>
     <Input v-model="name" placeholder="name" style="width: 300px" />
     <h3>下载链接:</h3>
     <Input v-model="addr" placeholder="address" style="width: 300px" />
-    <Button type="text" size="large" @click="update">get</Button>
     </Modal>
   </div>
 </template>
@@ -63,23 +60,12 @@ export default {
     cancel () {
       this.$Message.info('Clicked cancel')
     },
-    update () {
-      axios
-        .get('/api/v1/get')
-        .then(response => {
-          console.log(response)
-          console.log(response.data)
-          this.testGet = response.data.msg
-        }).catch(function (error) { // 请求失败处理
-          console.log(error)
-        })
-    },
     create () {
       axios
-        .post('/api/v1/post', {
+        .post('/api/v1/download', {
           addr: this.addr,
           downloadPath: './runtime/',
-          id: this.id,
+          id: (new Date()).valueOf(),
           name: this.name
         })
         .then(response => {
@@ -100,5 +86,8 @@ export default {
 h3 {
   font-weight: normal;
   margin-bottom: 5px;
+}
+.box{
+  float: left;
 }
 </style>

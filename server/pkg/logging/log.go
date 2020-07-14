@@ -2,11 +2,12 @@ package logging
 
 import (
 	"fmt"
-	"github.com/JiHanHuang/gin_vue/pkg/file"
 	"log"
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/JiHanHuang/gin_vue/pkg/file"
 )
 
 type Level int
@@ -19,7 +20,7 @@ var (
 
 	logger     *log.Logger
 	logPrefix  = ""
-	levelFlags = []string{"DEBUG", "INFO", "WARN", "ERROR", "FATAL"}
+	levelFlags = []string{"DEBU", "INFO", "WARN", "ERRO", "FATL"}
 )
 
 const (

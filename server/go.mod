@@ -38,9 +38,9 @@ require (
 	github.com/urfave/cli v1.22.4 // indirect
 	github.com/urfave/cli/v2 v2.2.0 // indirect
 	golang.org/x/image v0.0.0-20180628062038-cc896f830ced // indirect
-	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
+	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
 	golang.org/x/text v0.3.3 // indirect
-	golang.org/x/tools v0.0.0-20200618023723-47c907e25813 // indirect
+	golang.org/x/tools v0.0.0-20200713011307-fd294ab11aed // indirect
 	google.golang.org/appengine v1.6.3 // indirect
 	gopkg.in/ini.v1 v1.47.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect

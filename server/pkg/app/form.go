@@ -1,9 +1,10 @@
 package app
 
 import (
+	"net/http"
+
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"net/http"
 
 	"github.com/JiHanHuang/gin_vue/pkg/e"
 )

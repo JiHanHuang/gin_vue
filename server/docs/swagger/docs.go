@@ -323,6 +323,31 @@ var doc = `{
                 }
             }
         },
+        "/api/v1/download/list": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "New"
+                ],
+                "summary": "DownloadListForm",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/download/torrent": {
             "post": {
                 "produces": [
@@ -383,14 +408,6 @@ var doc = `{
                     "Test"
                 ],
                 "summary": "TorrentDownload",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Name",
-                        "name": "name",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -570,12 +587,12 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Import Image",
+                "summary": "Import article tag",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "Image File",
-                        "name": "image",
+                        "description": "Excel File",
+                        "name": "file",
                         "in": "formData",
                         "required": true
                     }

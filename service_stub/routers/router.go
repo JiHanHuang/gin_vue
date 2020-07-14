@@ -18,6 +18,10 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/", func(c *gin.Context) {
+		c.Header("Content-Type", "text/html; charset=utf-8")
+		c.String(200, `<h1>Welcome Service Stub</h1>`)
+	})
 
 	apiv1 := r.Group("/api/v1")
 	//apiv1.Use(jwt.JWT())

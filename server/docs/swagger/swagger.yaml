@@ -229,6 +229,22 @@ paths:
       summary: DownloadForm
       tags:
       - New
+  /api/v1/download/list:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: DownloadListForm
+      tags:
+      - New
   /api/v1/download/torrent:
     post:
       parameters:
@@ -263,11 +279,6 @@ paths:
       - New
   /api/v1/get:
     get:
-      parameters:
-      - description: Name
-        in: query
-        name: name
-        type: string
       produces:
       - application/json
       responses:
@@ -441,9 +452,9 @@ paths:
   /api/v1/tags/import:
     post:
       parameters:
-      - description: Image File
+      - description: Excel File
         in: formData
-        name: image
+        name: file
         required: true
         type: file
       produces:
@@ -457,7 +468,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/app.Response'
-      summary: Import Image
+      summary: Import article tag
   /auth:
     get:
       parameters:
