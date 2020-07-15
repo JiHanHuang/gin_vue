@@ -19,8 +19,20 @@ func InitRouter() *gin.Engine {
 
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/", func(c *gin.Context) {
+		c.Request.URL.Path = "/hello"
+		r.HandleContext(c)
+		//c.Redirect(http.StatusMovedPermanently, "https://baidu.com")
+	})
+	r.GET("/hello", func(c *gin.Context) {
 		c.Header("Content-Type", "text/html; charset=utf-8")
-		c.String(200, `<h1>Welcome Service Stub</h1>`)
+		c.String(200, `
+		<h3>Welcome service stub.</h3>
+		<script language="javascript" type="text/javascript">
+		var domain = window.location.host;
+		var url = "http://"+domain+"%s"
+		document.write("<a href="+url+">接口介绍</a>");
+		</script>
+		`, "/docs/index.html")
 	})
 
 	apiv1 := r.Group("/api/v1")
