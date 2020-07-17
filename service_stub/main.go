@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/JiHanHuang/stub/pkg/file"
 	"github.com/JiHanHuang/stub/pkg/gredis"
 	"github.com/JiHanHuang/stub/pkg/logging"
 	"github.com/JiHanHuang/stub/pkg/setting"
@@ -30,13 +31,33 @@ func main() {
 	gin.SetMode("debug")
 
 	routersInit := routers.InitRouter()
-	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
+	port := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
+
+	if setting.ServerSetting.HttpsEn {
+		portTLS := fmt.Sprintf(":%d", setting.ServerSetting.HttpsPort)
+		serverTLS := &http.Server{
+			Addr:    portTLS,
+			Handler: routersInit,
+		}
+		if file.CheckNotExist("server.key") {
+			cmd := "openssl genrsa -out server.key 2048"
+			if _, err := util.Cmder(cmd); err != nil {
+				log.Fatal("[ERRO] ", err)
+				return
+			}
+		}
+		if file.CheckNotExist("server.crt") {
+			log.Fatal("[ERRO] Please run [openssl req -new -x509 -key server.key -out server.crt -days 365] to create server.crt.")
+		}
+		log.Printf("[INFO] start https server listening %s", portTLS)
+		go serverTLS.ListenAndServeTLS("server.crt", "server.key")
+	}
 
 	server := &http.Server{
-		Addr:    endPoint,
+		Addr:    port,
 		Handler: routersInit,
 	}
 
-	log.Printf("[info] start http server listening %s", endPoint)
+	log.Printf("[INFO] start http server listening %s", port)
 	server.ListenAndServe()
 }

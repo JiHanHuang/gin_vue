@@ -2,7 +2,6 @@ package setting
 
 import (
 	"flag"
-	"syscall"
 	"time"
 
 	"github.com/go-ini/ini"
@@ -26,6 +25,7 @@ type App struct {
 	LogSavePath string
 	LogSaveName string
 	LogFileExt  string
+	LogStdOut   bool
 	TimeFormat  string
 }
 
@@ -34,6 +34,8 @@ var AppSetting = &App{}
 type Server struct {
 	RunMode      string
 	HttpPort     int
+	HttpsEn      bool
+	HttpsPort    int
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 }
@@ -54,12 +56,9 @@ var cfg *ini.File
 
 // Setup initialize the configuration instance
 func Setup() {
-	h := false
-	flag.BoolVar(&h, "h", false, "this help")
 	flag.IntVar(&(ServerSetting.HttpPort), "p", 8000, "-p	Listen port")
+	flag.BoolVar(&(ServerSetting.HttpsEn), "tls", false, "-tls    Use TLS, defualt port is 8888")
+	flag.IntVar(&(ServerSetting.HttpsPort), "tls-port", 8888, "--tls-port	TLS listen port")
+	flag.BoolVar(&(AppSetting.LogStdOut), "log-std", false, "--log-std    Print log to terminal")
 	flag.Parse()
-	if h {
-		flag.Usage()
-		syscall.Exit(0)
-	}
 }

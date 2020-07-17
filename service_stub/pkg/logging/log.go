@@ -8,6 +8,7 @@ import (
 	"runtime"
 
 	"github.com/JiHanHuang/stub/pkg/file"
+	"github.com/JiHanHuang/stub/pkg/setting"
 )
 
 type Level int
@@ -81,6 +82,10 @@ func setPrefix(level Level) {
 		logPrefix = fmt.Sprintf("[%s][%s:%d]", levelFlags[level], filepath.Base(file), line)
 	} else {
 		logPrefix = fmt.Sprintf("[%s]", levelFlags[level])
+	}
+
+	if setting.AppSetting.LogStdOut {
+		log.Println(logPrefix)
 	}
 
 	logger.SetPrefix(logPrefix)
