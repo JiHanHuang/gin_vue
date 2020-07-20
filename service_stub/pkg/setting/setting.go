@@ -26,6 +26,7 @@ type App struct {
 	LogSaveName string
 	LogFileExt  string
 	LogStdOut   bool
+	LogLevel    string
 	TimeFormat  string
 }
 
@@ -60,5 +61,6 @@ func Setup() {
 	flag.BoolVar(&(ServerSetting.HttpsEn), "tls", false, "-tls    Use TLS, defualt port is 8888")
 	flag.IntVar(&(ServerSetting.HttpsPort), "tls-port", 8888, "--tls-port	TLS listen port")
 	flag.BoolVar(&(AppSetting.LogStdOut), "log-std", false, "--log-std    Print log to terminal")
+	flag.StringVar(&(AppSetting.LogLevel), "log-level", "info", "--log-level    set log level debug, info[defualt], error, warn, fatal")
 	flag.Parse()
 }

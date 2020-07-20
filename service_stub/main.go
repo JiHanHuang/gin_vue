@@ -47,9 +47,10 @@ func main() {
 			}
 		}
 		if file.CheckNotExist("server.crt") {
-			log.Fatal("[ERRO] Please run [openssl req -new -x509 -key server.key -out server.crt -days 365] to create server.crt.")
+			log.Fatal("[%s] Please run [openssl req -new -x509 -key server.key -out server.crt -days 365] to create server.crt.",
+				logging.LevelFlags[logging.INFO])
 		}
-		log.Printf("[INFO] start https server listening %s", portTLS)
+		log.Printf("[%s] start https server listening %s", logging.LevelFlags[logging.INFO], portTLS)
 		go serverTLS.ListenAndServeTLS("server.crt", "server.key")
 	}
 
@@ -58,6 +59,6 @@ func main() {
 		Handler: routersInit,
 	}
 
-	log.Printf("[INFO] start http server listening %s", port)
+	log.Printf("[%s] start http server listening %s", logging.LevelFlags[logging.INFO], port)
 	server.ListenAndServe()
 }

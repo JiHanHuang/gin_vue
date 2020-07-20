@@ -20,8 +20,10 @@ var (
 	DefaultCallerDepth = 2
 
 	logger     *log.Logger
+	std        *log.Logger
 	logPrefix  = ""
-	levelFlags = []string{"DEBUG", "INFO", "WARN", "ERROR", "FATAL"}
+	LevelFlags = []string{"DEBU", "INFO", "WARN", "ERRO", "FATA"}
+	level      = INFO
 )
 
 const (
@@ -39,53 +41,98 @@ func Setup() {
 	fileName := getLogFileName()
 	F, err = file.MustOpen(fileName, filePath)
 	if err != nil {
-		log.Fatalf("logging.Setup err: %v", err)
+		log.Fatalf("[%s] Logging.Setup err: %v", LevelFlags[FATAL], err)
 	}
 
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
+	std = log.New(os.Stdout, DefaultPrefix, log.LstdFlags)
+
+	switch setting.AppSetting.LogLevel {
+	case "debug":
+		level = DEBUG
+	case "info":
+		level = INFO
+	case "warn":
+		level = WARNING
+	case "error":
+		level = ERROR
+	case "fatal":
+		level = FATAL
+	default:
+		level = INFO
+		log.Printf("[%s] Not support log level %s. reset to info level",
+			LevelFlags[ERROR], setting.AppSetting.LogLevel)
+	}
+	log.Printf("[%s] Log level:%s	Log std: %v", LevelFlags[INFO], LevelFlags[level],
+		setting.AppSetting.LogStdOut)
 }
 
 // Debug output logs at debug level
 func Debug(v ...interface{}) {
 	setPrefix(DEBUG)
-	logger.Println(v)
+	if level <= DEBUG {
+		if setting.AppSetting.LogStdOut {
+			std.Println(v...)
+		}
+		logger.Println(v...)
+	}
 }
 
 // Info output logs at info level
 func Info(v ...interface{}) {
 	setPrefix(INFO)
-	logger.Println(v)
+	if level <= INFO {
+		if setting.AppSetting.LogStdOut {
+			std.Println(v...)
+		}
+		logger.Println(v...)
+	}
 }
 
 // Warn output logs at warn level
 func Warn(v ...interface{}) {
 	setPrefix(WARNING)
-	logger.Println(v)
+	if level <= WARNING {
+		if setting.AppSetting.LogStdOut {
+			std.Println(v...)
+		}
+		logger.Println(v...)
+	}
 }
 
 // Error output logs at error level
 func Error(v ...interface{}) {
 	setPrefix(ERROR)
-	logger.Println(v)
+	if level <= ERROR {
+		if setting.AppSetting.LogStdOut {
+			std.Println(v...)
+		}
+		logger.Println(v...)
+	}
 }
 
 // Fatal output logs at fatal level
 func Fatal(v ...interface{}) {
 	setPrefix(FATAL)
-	logger.Fatalln(v)
+	if level <= FATAL {
+		if setting.AppSetting.LogStdOut {
+			std.Fatalln(v...)
+		}
+		logger.Fatalln(v...)
+	}
 }
 
 // setPrefix set the prefix of the log output
 func setPrefix(level Level) {
 	_, file, line, ok := runtime.Caller(DefaultCallerDepth)
 	if ok {
-		logPrefix = fmt.Sprintf("[%s][%s:%d]", levelFlags[level], filepath.Base(file), line)
+		logPrefix = fmt.Sprintf("[%s][%s:%d]", LevelFlags[level], filepath.Base(file), line)
 	} else {
-		logPrefix = fmt.Sprintf("[%s]", levelFlags[level])
+		logPrefix = fmt.Sprintf("[%s]", LevelFlags[level])
 	}
 
 	if setting.AppSetting.LogStdOut {
-		log.Println(logPrefix)
+		std.SetPrefix(logPrefix)
 	}
 
 	logger.SetPrefix(logPrefix)
