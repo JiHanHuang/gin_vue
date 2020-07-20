@@ -2,8 +2,11 @@ package setting
 
 import (
 	"flag"
+	"fmt"
+	"os"
 	"time"
 
+	"github.com/JiHanHuang/stub/docs/version"
 	"github.com/go-ini/ini"
 )
 
@@ -62,5 +65,11 @@ func Setup() {
 	flag.IntVar(&(ServerSetting.HttpsPort), "tls-port", 8888, "--tls-port	TLS listen port")
 	flag.BoolVar(&(AppSetting.LogStdOut), "log-std", false, "--log-std    Print log to terminal")
 	flag.StringVar(&(AppSetting.LogLevel), "log-level", "info", "--log-level    set log level debug, info[defualt], error, warn, fatal")
+	var v bool
+	flag.BoolVar(&v, "v", false, "-v    Version")
 	flag.Parse()
+	if v {
+		fmt.Printf("Service Stub V%s\n", version.Version)
+		os.Exit(0)
+	}
 }
