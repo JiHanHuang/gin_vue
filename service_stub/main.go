@@ -28,7 +28,7 @@ func init() {
 // @termsOfService https://github.com/JiHanHuang/stub
 
 func main() {
-	gin.SetMode("debug")
+	gin.SetMode(setting.ServerSetting.RunMode)
 
 	routersInit := routers.InitRouter()
 	port := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
@@ -59,6 +59,6 @@ func main() {
 		Handler: routersInit,
 	}
 
-	log.Printf("[%s] start http server listening %s", logging.LevelFlags[logging.INFO], port)
+	log.Printf("[%s] Start http server listening %s", logging.LevelFlags[logging.INFO], port)
 	server.ListenAndServe()
 }

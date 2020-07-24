@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/JiHanHuang/stub/docs/swagger"
+	"github.com/JiHanHuang/stub/middleware/info"
 	"github.com/JiHanHuang/stub/pkg/setting"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -15,7 +16,12 @@ import (
 // InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
+	if setting.ServerSetting.RunMode == "debug" {
+		r.Use(gin.Logger())
+	} else {
+		r.Use(info.MSG())
+	}
+
 	r.Use(gin.Recovery())
 
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -50,6 +56,9 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/upload/", v1.UpFile)
 		apiv1.GET("/websocket", v1.Home)
 		apiv1.GET("/websocket/echo", v1.Echo)
+		apiv1.GET("/delay", v1.Delay)
+		apiv1.GET("/data", v1.Data)
+		apiv1.GET("/pdata", v1.PData)
 	}
 	apiSet := r.Group("/api/set")
 	{
