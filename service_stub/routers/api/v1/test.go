@@ -73,6 +73,7 @@ func TgetUrl(c *gin.Context) {
 		data = append(data, fmt.Sprintf("%s:%v", k, v))
 	}
 	data = append(data, "body:"+string(body))
+	data = append(data, "url:"+appG.C.Request.RequestURI)
 	data = append(data, "content_len:"+strconv.FormatInt(c.Request.ContentLength, 10))
 	appG.Response(http.StatusOK, e.SUCCESS, &data)
 }
@@ -98,6 +99,31 @@ func TpostUrl(c *gin.Context) {
 	data = append(data, "body:"+string(body))
 	data = append(data, "content_len:"+strconv.FormatInt(c.Request.ContentLength, 10))
 	appG.Response(http.StatusOK, e.SUCCESS, &data)
+}
+
+// @Tags Test
+// @Summary get url信息获取
+// @Success 200 string "{}"
+// @Router /api/v1/show [get]
+func Show(c *gin.Context) {
+	appG := app.Gin{C: c}
+	data := make([]string, 0, 4)
+	body, _ := ioutil.ReadAll(c.Request.Body)
+	for k, v := range c.Request.Header {
+		data = append(data, fmt.Sprintf("%s:%v", k, v))
+	}
+	data = append(data, "Body:"+string(body))
+	data = append(data, "Url:"+appG.C.Request.RequestURI)
+	data = append(data, "Content-Len:"+strconv.FormatInt(c.Request.ContentLength, 10))
+	d, err := json.MarshalIndent(data, "    ", "<br>")
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	appG.C.Header("Content-Type", "text/html; charset=utf-8")
+	appG.C.String(http.StatusOK, "<h4>%s</h4>", string(d))
+	//fmt.Fprintf(appG.C.Writer, "%s", string(d))
+	//appG.C.JSON(http.StatusOK, &data)
 }
 
 func isJSON(s string) bool {
