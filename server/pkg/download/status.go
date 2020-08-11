@@ -10,6 +10,14 @@ const (
 	Failed
 )
 
+type Attr struct {
+	ID       int
+	Addr     string
+	DownPath string
+	FileName string
+	FileSize int64
+}
+
 type Status struct {
 	m       sync.RWMutex
 	Percent int

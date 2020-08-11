@@ -11,12 +11,8 @@ import (
 )
 
 type FTP struct {
-	ID       int
-	Addr     string
-	DownPath string
-	FileName string
-	fileSize int64
-	s        *download.Status
+	download.Attr
+	s *download.Status
 }
 
 // WriteCounter counts the number of bytes written to it. It implements to the io.Writer
@@ -43,16 +39,18 @@ func (wc WriteCounter) PrintProgress() {
 	// We use the humanize package to print the bytes in a meaningful way (e.g. 10 MB)
 	//fmt.Printf("\rDownloading... %d B complete", wc.Total)
 
-	wc.F.s.UpP(int(int64(wc.Total*100) / wc.F.fileSize))
+	wc.F.s.UpP(int(int64(wc.Total*100) / wc.F.FileSize))
 }
 
 func InitFtp(id int, addr, path, fileName string) *FTP {
 	return &FTP{
-		ID:       id,
-		Addr:     addr,
-		DownPath: path,
-		FileName: fileName,
-		s:        download.InitStatus(download.Waiting, 0),
+		Attr: download.Attr{
+			ID:       id,
+			Addr:     addr,
+			DownPath: path,
+			FileName: fileName,
+		},
+		s: download.InitStatus(download.Waiting, 0),
 	}
 }
 
@@ -72,7 +70,7 @@ func downloadWorker(f *FTP) {
 	}
 	defer resp.Body.Close()
 
-	f.fileSize = resp.ContentLength
+	f.FileSize = resp.ContentLength
 
 	out, err := os.Create(f.DownPath + "/" + f.FileName)
 	if err != nil {
@@ -94,10 +92,6 @@ func (f *FTP) GetStatus() download.Status {
 	return *(f.s)
 }
 
-func (f *FTP) GetID() int {
-	return f.ID
-}
-
-func (f *FTP) GetName() string {
-	return f.FileName
+func (f *FTP) GetAttr() download.Attr {
+	return f.Attr
 }

@@ -3,7 +3,10 @@ package v1
 import (
 	"encoding/base64"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 
 	"github.com/JiHanHuang/gin_vue/pkg/download"
@@ -40,8 +43,9 @@ func GetDownloadList(c *gin.Context) {
 	var downList DownloadListForm
 	for _, l := range list {
 		var li status
-		li.ID = l.GetID()
-		li.Name = l.GetName()
+		attr := l.GetAttr()
+		li.ID = attr.ID
+		li.Name = attr.FileName
 		s := l.GetStatus()
 		if s.Percent > 100 {
 			li.Percent = 100
@@ -166,4 +170,38 @@ func Download(c *gin.Context) {
 		return
 	}
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
+
+// @Tags New
+// @Summary getfile
+// @Param id query string true "ID"
+// @Success 200 {object} octet-stream
+// @Router /api/v1/getfile [get]
+func GetFile(c *gin.Context) {
+	appG := app.Gin{C: c}
+	idstr := c.Query("id")
+	id, err := strconv.Atoi(idstr)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	down, err := download_service.GetDown(id)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	attr := down.GetAttr()
+	file, err := os.Open(attr.DownPath + "/" + attr.FileName) //Create a file
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	defer file.Close()
+	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", attr.FileName))
+	c.Writer.Header().Add("Content-Type", "application/octet-stream")
+	_, err = io.Copy(c.Writer, file)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
 }

@@ -293,6 +293,22 @@ paths:
       summary: TorrentDownload
       tags:
       - Test
+  /api/v1/getfile:
+    get:
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: getfile
+      tags:
+      - New
   /api/v1/post:
     post:
       parameters:

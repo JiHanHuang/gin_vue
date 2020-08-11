@@ -4,6 +4,7 @@ all: build
 
 build:
 	@go build -v .
+#	swag init -o ./docs/swagger/
 
 tool:
 	go vet ./...; true

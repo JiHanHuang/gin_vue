@@ -424,6 +424,31 @@ var doc = `{
                 }
             }
         },
+        "/api/v1/getfile": {
+            "get": {
+                "tags": [
+                    "New"
+                ],
+                "summary": "getfile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "octet-stream"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/post": {
             "post": {
                 "produces": [

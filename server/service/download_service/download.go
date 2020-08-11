@@ -13,8 +13,7 @@ import (
 type Download interface {
 	DownloadFile() error
 	GetStatus() download.Status
-	GetID() int
-	GetName() string
+	GetAttr() download.Attr
 }
 
 var downList sync.Map
@@ -23,17 +22,6 @@ func InitDownload(id int, addr, path, fileName string) Download {
 	d := ftp.InitFtp(id, addr, path, fileName)
 	downList.Store(id, d)
 	return d
-}
-
-func GetStatus(id int) (error, download.Status) {
-	if d, ok := downList.Load(id); ok {
-		entry, ret := d.(Download)
-		if !ret {
-			return fmt.Errorf("Type assert failed in GetStatus. ID:%d.", id), download.Status{}
-		}
-		return nil, entry.GetStatus()
-	}
-	return fmt.Errorf("Not find data. ID:%d.", id), download.Status{}
 }
 
 func GetDownList() (statutsList []Download) {
@@ -47,4 +35,15 @@ func GetDownList() (statutsList []Download) {
 		return true
 	})
 	return
+}
+
+func GetDown(id int) (Download, error) {
+	if d, ok := downList.Load(id); ok {
+		entry, ret := d.(Download)
+		if !ret {
+			return nil, fmt.Errorf("Type assert failed in GetStatus. ID:%d.", id)
+		}
+		return entry, nil
+	}
+	return nil, fmt.Errorf("Not find data. ID:%d.", id)
 }
