@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/JiHanHuang/stub/docs/swagger"
+	"github.com/JiHanHuang/stub/docs/version"
 	"github.com/JiHanHuang/stub/middleware/info"
 	"github.com/JiHanHuang/stub/pkg/setting"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -39,8 +40,9 @@ func InitRouter() *gin.Engine {
 		var httphost = "http://"+domain+":%d%s"
 		document.write("<a href="+httphost+">接口介绍[HTTP]</a><br>");
 		</script>
-		<a href="/api/v1/websocket">websocket</a>
-		`, setting.ServerSetting.HttpPort, "/docs/index.html")
+		<a href="/api/v1/websocket">websocket</a><br><br>
+		<i>Version: %s</i>
+		`, setting.ServerSetting.HttpPort, "/docs/index.html", version.Version)
 	})
 
 	apiv1 := r.Group("/api/v1")
@@ -64,6 +66,7 @@ func InitRouter() *gin.Engine {
 	apiSet := r.Group("/api/set")
 	{
 		apiSet.POST("/response", set.SetResponse)
+		apiSet.GET("/list", set.GetResponse)
 	}
 
 	return r

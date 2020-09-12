@@ -29,12 +29,13 @@ definitions:
   set.SetResponseForm:
     properties:
       code:
+        example: 200
         type: integer
       contentType:
+        example: json
         type: string
       data:
-        type: string
-      uri:
+        example: your response data
         type: string
     type: object
 info:
@@ -45,6 +46,18 @@ info:
   title: Golang Gin-VUE API
   version: "1.0"
 paths:
+  /api/set/list:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 自定义返回列表
+      tags:
+      - Set
   /api/set/response:
     post:
       parameters:
@@ -53,7 +66,7 @@ paths:
         name: setResponse
         schema:
           $ref: '#/definitions/set.SetResponseForm'
-      - default: '"set_response"'
+      - default: set_response
         description: 自定义返回名
         in: query
         name: name
@@ -73,6 +86,48 @@ paths:
       summary: 设置自定义返回
       tags:
       - Set
+  /api/v1/data:
+    get:
+      parameters:
+      - description: 数据量(k)默认0k
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取一定量的数据
+      tags:
+      - Test
+  /api/v1/delay:
+    get:
+      parameters:
+      - description: 延时时长(默认5s)
+        in: query
+        name: delay
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 延时返回
+      tags:
+      - Test
   /api/v1/download:
     get:
       parameters:
@@ -81,11 +136,6 @@ paths:
         name: filename
         required: true
         type: string
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/gin.Context'
       summary: 下载文件
       tags:
       - Test
@@ -140,6 +190,27 @@ paths:
       summary: get url信息获取
       tags:
       - Test
+  /api/v1/pdata:
+    get:
+      parameters:
+      - description: 数据量(0,1,10)默认0
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取一定量的数据(并发)
+      tags:
+      - Test
   /api/v1/post:
     post:
       parameters:
@@ -188,6 +259,16 @@ paths:
           schema:
             $ref: '#/definitions/app.Response'
       summary: post url信息获取
+      tags:
+      - Test
+  /api/v1/show:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: get url信息获取
       tags:
       - Test
   /api/v1/upload:

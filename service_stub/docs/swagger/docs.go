@@ -26,6 +26,25 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/set/list": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Set"
+                ],
+                "summary": "自定义返回列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/set/response": {
             "post": {
                 "produces": [
@@ -46,11 +65,77 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "default": "\"set_response\"",
+                        "default": "set_response",
                         "description": "自定义返回名",
                         "name": "name",
                         "in": "query",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/data": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "获取一定量的数据",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "数据量(k)默认0k",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/delay": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "延时返回",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "延时时长(默认5s)",
+                        "name": "delay",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -83,15 +168,7 @@ var doc = `{
                         "in": "query",
                         "required": true
                     }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/gin.Context"
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/v1/download2": {
@@ -158,6 +235,39 @@ var doc = `{
                     "Test"
                 ],
                 "summary": "get url信息获取",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/pdata": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "获取一定量的数据(并发)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "数据量(0,1,10)默认0",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -252,6 +362,22 @@ var doc = `{
                 }
             }
         },
+        "/api/v1/show": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "get url信息获取",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/upload": {
             "post": {
                 "consumes": [
@@ -333,16 +459,16 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 200
                 },
                 "contentType": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "json"
                 },
                 "data": {
-                    "type": "string"
-                },
-                "uri": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "your response data"
                 }
             }
         }

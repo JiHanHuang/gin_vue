@@ -103,7 +103,7 @@ func TpostUrl(c *gin.Context) {
 
 // @Tags Test
 // @Summary get url信息获取
-// @Success 200 string "{}"
+// @Success 200 string string
 // @Router /api/v1/show [get]
 func Show(c *gin.Context) {
 	appG := app.Gin{C: c}
@@ -147,7 +147,7 @@ func DownFile2(c *gin.Context) {
 // @Tags Test
 // @Summary 下载文件
 // @Param filename query string true "file name"
-// @Success 200 {object} octet-stream
+///// Success 200 {object} octet-stream
 // @Router /api/v1/download [get]
 func DownFile(c *gin.Context) {
 	appG := app.Gin{C: c}

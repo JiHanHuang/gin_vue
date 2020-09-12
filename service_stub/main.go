@@ -31,7 +31,6 @@ func main() {
 	gin.SetMode(setting.ServerSetting.RunMode)
 
 	routersInit := routers.InitRouter()
-	port := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
 
 	if setting.ServerSetting.HttpsEn {
 		portTLS := fmt.Sprintf(":%d", setting.ServerSetting.HttpsPort)
@@ -54,11 +53,14 @@ func main() {
 		go serverTLS.ListenAndServeTLS("server.crt", "server.key")
 	}
 
+	port := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
 	server := &http.Server{
 		Addr:    port,
 		Handler: routersInit,
 	}
 
-	log.Printf("[%s] Start http server listening %s", logging.LevelFlags[logging.INFO], port)
-	server.ListenAndServe()
+	log.Printf("[%s] Start http server...	Port[%d]", logging.LevelFlags[logging.INFO], setting.ServerSetting.HttpPort)
+	if err := server.ListenAndServe(); err != nil {
+		log.Printf("[%s] Start http server failed. ERR:%s", logging.LevelFlags[logging.ERROR], err.Error())
+	}
 }

@@ -3,7 +3,7 @@
 all: build
 
 build:
-	@go build -v .
+	@go build -mod vendor -v .
 
 tool:
 	go vet ./...; true
