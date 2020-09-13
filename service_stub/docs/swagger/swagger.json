@@ -71,6 +71,50 @@
                 }
             }
         },
+        "/api/tool/fingerprint": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tool"
+                ],
+                "summary": "获取数据",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "appkey",
+                        "name": "app_key",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "default": "{\"app_id\":\"xxxxx\",...}",
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/data": {
             "get": {
                 "produces": [

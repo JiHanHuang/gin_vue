@@ -86,6 +86,35 @@ paths:
       summary: 设置自定义返回
       tags:
       - Set
+  /api/tool/fingerprint:
+    post:
+      parameters:
+      - description: appkey
+        in: query
+        name: app_key
+        required: true
+        type: string
+      - default: '{"app_id":"xxxxx",...}'
+        description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取数据
+      tags:
+      - Tool
   /api/v1/data:
     get:
       parameters:

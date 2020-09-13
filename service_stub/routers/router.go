@@ -11,6 +11,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
 	"github.com/JiHanHuang/stub/routers/api/set"
+	"github.com/JiHanHuang/stub/routers/api/tool"
 	v1 "github.com/JiHanHuang/stub/routers/api/v1"
 )
 
@@ -67,6 +68,10 @@ func InitRouter() *gin.Engine {
 	{
 		apiSet.POST("/response", set.SetResponse)
 		apiSet.GET("/list", set.GetResponse)
+	}
+	apiTool := r.Group("/api/tool")
+	{
+		apiTool.POST("/fingerprint", tool.FingerPrint)
 	}
 
 	return r
