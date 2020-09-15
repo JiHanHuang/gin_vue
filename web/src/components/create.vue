@@ -1,6 +1,8 @@
 <template>
   <div class="box">
-    <Button type="text" size="large" @click="modal1 = true"><Icon type="md-add" size="30" /></Button>
+    <Button type="text" @click="modal1 = true">
+      <Icon type="md-add" size="30" />
+    </Button>
     <Modal
     v-model="modal1"
     title="创建新的下载"
@@ -12,6 +14,9 @@
         <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
     </Select>
     <h3>名称:</h3>
+    <div v-if="addr != ''">
+      {{getName()}}
+    </div>
     <Input v-model="name" placeholder="name" style="width: 300px" />
     <h3>下载链接:</h3>
     <Input v-model="addr" placeholder="address" style="width: 300px" />
@@ -55,7 +60,7 @@ export default {
       setTimeout(() => {
         this.modal1 = false
       }, 1000)
-      this.$Message.info(this.model2)
+      this.$Message.info('下载已开始' + this.model2)
     },
     cancel () {
       this.$Message.info('Clicked cancel')
@@ -66,16 +71,23 @@ export default {
           addr: this.addr,
           downloadPath: './runtime/',
           id: (new Date()).valueOf(),
-          name: this.name
+          name: this.name,
+          type: this.model2
         })
         .then(response => {
-          console.log(response)
           console.log(response.data)
           this.testGet = response.data.msg
-        }).catch(function (error) { // 请求失败处理
+        }).catch(error => { // 请求失败处理
+          this.$Message.error(error.response.data.data)
           console.log(error)
         })
       this.modal1 = false
+    },
+    getName () {
+      var nn = this.addr.split('/')
+      console.log(nn)
+      this.name = nn[nn.length - 1]
+      console.log(name)
     }
   },
   components: {download}

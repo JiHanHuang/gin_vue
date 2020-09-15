@@ -1,6 +1,7 @@
 package info
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/JiHanHuang/gin_vue/pkg/logging"
@@ -18,12 +19,7 @@ func MSG() gin.HandlerFunc {
 		method := c.Request.Method
 		path := c.Request.URL.Path
 		status := c.Writer.Status()
-		logging.Info(
-			"path:", path,
-			"method:", method,
-			"status:", status,
-			"client_ip:", clientIP,
-			"latency:", latency,
-		)
+		logging.Info(fmt.Sprintf(" | %3d | %12v | %16s | %8s | %s",
+			status, latency, clientIP, method, path))
 	}
 }

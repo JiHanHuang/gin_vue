@@ -1,6 +1,8 @@
 # github.com/360EntSecGroup-Skylar/excelize v1.3.1-0.20180527032555-9e463b461434
 github.com/360EntSecGroup-Skylar/excelize
-# github.com/PuerkitoBio/purell v1.1.1-0.20180310210909-975f53781597
+# github.com/KyleBanks/depth v1.2.1
+github.com/KyleBanks/depth
+# github.com/PuerkitoBio/purell v1.1.1
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
 github.com/PuerkitoBio/urlesc
@@ -13,6 +15,8 @@ github.com/astaxie/beego/validation
 github.com/boombuler/barcode
 github.com/boombuler/barcode/qr
 github.com/boombuler/barcode/utils
+# github.com/davecgh/go-spew v1.1.1
+github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.1.0+incompatible
 github.com/dgrijalva/jwt-go
 # github.com/gin-contrib/sse v0.1.0
@@ -24,13 +28,13 @@ github.com/gin-gonic/gin/internal/json
 github.com/gin-gonic/gin/render
 # github.com/go-ini/ini v1.32.1-0.20180214101753-32e4be5f41bb
 github.com/go-ini/ini
-# github.com/go-openapi/jsonpointer v0.17.0
+# github.com/go-openapi/jsonpointer v0.19.3
 github.com/go-openapi/jsonpointer
-# github.com/go-openapi/jsonreference v0.19.0
+# github.com/go-openapi/jsonreference v0.19.3
 github.com/go-openapi/jsonreference
-# github.com/go-openapi/spec v0.19.0
+# github.com/go-openapi/spec v0.19.8
 github.com/go-openapi/spec
-# github.com/go-openapi/swag v0.17.0
+# github.com/go-openapi/swag v0.19.9
 github.com/go-openapi/swag
 # github.com/go-sql-driver/mysql v1.4.1-0.20190510102335-877a9775f068
 github.com/go-sql-driver/mysql
@@ -43,6 +47,8 @@ github.com/golang/protobuf/proto
 # github.com/gomodule/redigo v2.0.1-0.20180401191855-9352ab68be13+incompatible
 github.com/gomodule/redigo/internal
 github.com/gomodule/redigo/redis
+# github.com/jackpal/bencode-go v1.0.0
+github.com/jackpal/bencode-go
 # github.com/jinzhu/gorm v0.0.0-20180213101209-6e1387b44c64
 github.com/jinzhu/gorm
 github.com/jinzhu/gorm/dialects/mysql
@@ -50,7 +56,7 @@ github.com/jinzhu/gorm/dialects/mysql
 github.com/jinzhu/inflection
 # github.com/json-iterator/go v1.1.7
 github.com/json-iterator/go
-# github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329
+# github.com/mailru/easyjson v0.7.1
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
@@ -60,12 +66,15 @@ github.com/mattn/go-isatty
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v1.0.1
 github.com/modern-go/reflect2
-# github.com/pkg/errors v0.8.1
-github.com/pkg/errors
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.4.0
+github.com/stretchr/testify/assert
+github.com/stretchr/testify/require
 # github.com/swaggo/gin-swagger v1.2.0
 github.com/swaggo/gin-swagger
 github.com/swaggo/gin-swagger/swaggerFiles
-# github.com/swaggo/swag v1.5.1
+# github.com/swaggo/swag v1.6.7
 github.com/swaggo/swag
 # github.com/tealeg/xlsx v1.0.4-0.20180419195153-f36fa3be8893
 github.com/tealeg/xlsx
@@ -76,20 +85,20 @@ github.com/unknwon/com
 # golang.org/x/image v0.0.0-20180628062038-cc896f830ced
 golang.org/x/image/font
 golang.org/x/image/math/fixed
-# golang.org/x/net v0.0.0-20190611141213-3f473d35a33a
+# golang.org/x/net v0.0.0-20200707034311-ab3426394381
 golang.org/x/net/context
 golang.org/x/net/idna
 golang.org/x/net/webdav
 golang.org/x/net/webdav/internal/xml
-# golang.org/x/sys v0.0.0-20190921204832-2dccfee4fd3e
+# golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd
 golang.org/x/sys/unix
-# golang.org/x/text v0.3.2
+# golang.org/x/text v0.3.3
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# golang.org/x/tools v0.0.0-20190611222205-d73e1c7e250b
+# golang.org/x/tools v0.0.0-20200713011307-fd294ab11aed
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/buildutil
 golang.org/x/tools/go/internal/cgo
@@ -98,5 +107,5 @@ golang.org/x/tools/go/loader
 google.golang.org/appengine/cloudsql
 # gopkg.in/go-playground/validator.v8 v8.18.2
 gopkg.in/go-playground/validator.v8
-# gopkg.in/yaml.v2 v2.2.2
+# gopkg.in/yaml.v2 v2.3.0
 gopkg.in/yaml.v2

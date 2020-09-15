@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/JiHanHuang/gin_vue/models"
 	"github.com/JiHanHuang/gin_vue/pkg/gredis"
 	"github.com/JiHanHuang/gin_vue/pkg/logging"
 	"github.com/JiHanHuang/gin_vue/pkg/setting"
@@ -17,7 +15,7 @@ import (
 
 func init() {
 	setting.Setup()
-	models.Setup()
+	//models.Setup()
 	logging.Setup()
 	gredis.Setup()
 	util.Setup()
@@ -45,9 +43,12 @@ func main() {
 		MaxHeaderBytes: maxHeaderBytes,
 	}
 
-	log.Printf("[info] start http server listening %s", endPoint)
+	logging.Info("Start http server...    Port ", setting.ServerSetting.HttpPort)
 
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+	if err != nil {
+		logging.Fatal("Server err: ", err)
+	}
 
 	// If you want Graceful Restart, you need a Unix system and download github.com/fvbock/endless
 	//endless.DefaultReadTimeOut = readTimeout

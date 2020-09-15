@@ -3,14 +3,13 @@ package v1
 import (
 	"encoding/base64"
 	"fmt"
-	"io"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 
 	"github.com/JiHanHuang/gin_vue/pkg/download"
 	"github.com/JiHanHuang/gin_vue/pkg/logging"
+	"github.com/JiHanHuang/gin_vue/pkg/util"
 
 	"github.com/gin-gonic/gin"
 
@@ -52,19 +51,19 @@ func GetDownloadList(c *gin.Context) {
 		} else {
 			li.Percent = s.Percent
 		}
-		logging.Debug(fmt.Sprintln(s))
 		switch s.State {
 		case download.Failed:
 			li.Status = "wrong"
 		case download.Running:
 			li.Status = "active"
 		case download.Finish:
-			li.Status = ""
+			li.Status = "success"
 			li.Percent = 100
 		default:
 			li.Status = ""
 		}
 		downList.List = append(downList.List, li)
+		logging.Debug(li)
 	}
 
 	appG.Response(http.StatusOK, e.SUCCESS, downList)
@@ -115,6 +114,7 @@ type DownloadForm struct {
 	Name         string `form:"name" valid:"Required;MaxSize(100)"`
 	Addr         string `form:"addr" valid:"Required"`
 	DownloadPath string `form:"downloadPath" valid:"Required"`
+	Type         string `form:"type" valid:"Required"`
 }
 
 // @Tags New
@@ -135,38 +135,50 @@ func Download(c *gin.Context) {
 		appG.Response(httpCode, errCode, nil)
 		return
 	}
-	/*
-		err := c.ShouldBindJSON(&form)
-		if err != nil {
-			appG.Response(http.StatusBadRequest, e.ERROR, nil)
-			return
-		}
-	*/
-
-	if strings.Contains(form.Addr, "thunder://") {
+	logging.Debug(form)
+	switch form.Type {
+	case "thunder":
 		split := strings.SplitN(form.Addr, "thunder://", 2)
-		if split[1] != "" {
-			decodeBytes, err := base64.StdEncoding.DecodeString(split[1])
-			if err != nil {
-				appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
-				return
-			}
-
-			//remove AA and ZZ
-			addr := string(decodeBytes[2 : len(decodeBytes)-2])
-			downFile := form.Name
-			if i := strings.LastIndex(addr, "/"); i >= 0 && i+1 < len(addr) {
-				downFile = addr[i+1:]
-			}
-			ftp := download_service.InitDownload(form.ID, addr, form.DownloadPath, downFile)
-			if err := ftp.DownloadFile(); err != nil {
-				appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
-				return
-			}
-			appG.Response(http.StatusOK, e.SUCCESS, nil)
+		logging.Debug("xxxxxxxxxxx", len(split))
+		if len(split) < 2 {
+			appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, "invaild input")
 			return
 		}
-		appG.Response(http.StatusBadRequest, e.ERROR, "invaild input")
+		if split[1] == "" {
+			appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, "invaild input")
+			return
+		}
+		decodeBytes, err := base64.StdEncoding.DecodeString(split[1])
+		if err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+			return
+		}
+
+		//remove AA and ZZ
+		addr := string(decodeBytes[2 : len(decodeBytes)-2])
+		downFile := form.Name
+		if downFile == "" || len(downFile) <= 0 {
+			downFile = util.RandString(8)
+		}
+		ftp := download_service.InitDownload(form.ID, addr, form.DownloadPath, downFile)
+		if err := ftp.DownloadFile(); err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+			return
+		}
+	case "file":
+		fallthrough
+	case "other":
+		downFile := form.Name
+		if downFile == "" || len(downFile) <= 0 {
+			downFile = util.RandString(8)
+		}
+		ftp := download_service.InitDownload(form.ID, form.Addr, form.DownloadPath, downFile)
+		if err := ftp.DownloadFile(); err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+			return
+		}
+	default:
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, "invild type:"+form.Type)
 		return
 	}
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
@@ -175,7 +187,6 @@ func Download(c *gin.Context) {
 // @Tags New
 // @Summary getfile
 // @Param id query string true "ID"
-// @Success 200 {object} octet-stream
 // @Router /api/v1/getfile [get]
 func GetFile(c *gin.Context) {
 	appG := app.Gin{C: c}
@@ -191,17 +202,8 @@ func GetFile(c *gin.Context) {
 		return
 	}
 	attr := down.GetAttr()
-	file, err := os.Open(attr.DownPath + "/" + attr.FileName) //Create a file
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
-		return
-	}
-	defer file.Close()
 	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", attr.FileName))
 	c.Writer.Header().Add("Content-Type", "application/octet-stream")
-	_, err = io.Copy(c.Writer, file)
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
-		return
-	}
+	filePath := attr.DownPath + "/" + attr.FileName
+	c.File(filePath)
 }

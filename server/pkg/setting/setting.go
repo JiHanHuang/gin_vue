@@ -25,6 +25,8 @@ type App struct {
 	LogSavePath string
 	LogSaveName string
 	LogFileExt  string
+	LogStdOut   bool
+	LogLevel    string
 	TimeFormat  string
 }
 

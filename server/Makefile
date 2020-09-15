@@ -3,7 +3,7 @@
 all: build
 
 build:
-	@go build -v .
+	@go build -mod vendor -v .
 #	swag init -o ./docs/swagger/
 
 tool:

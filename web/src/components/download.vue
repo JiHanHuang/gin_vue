@@ -2,7 +2,7 @@
  <div>
     <p>{{list}}</p>
     <p>{{vueMsg}}</p>
-    <Row v-for="l in list" :key="l.id" style="height: 35px">
+    <Row v-for="l in list" :key="l.id" style="height: 35px" type="flex" justify="center" align="middle">
       <Col span="2">
         <Tooltip max-width="400" :content="l.name">
         <p style="width: 100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
@@ -11,17 +11,28 @@
         </Tooltip>
       </Col>
       <Col span="18">
-        <div v-if="l.status === ''">
+        <div v-if="l.status == ''">
         <Progress :percent="l.percent" :stroke-width="15"/>
         </div>
         <div v-else>
         <Progress :percent="l.percent" :stroke-width="15" :status="l.status" />
         </div>
       </Col>
-      <Col span="1"><Icon type="md-refresh-circle"  size="24" /></Col>
-      <Col span="1"><Icon type="md-download" size="24" /></Col>
-      <Col span="1"><Icon type="md-remove-circle" size="24" /></Col>
-      <Col span="1"><Icon type="md-play" size="24" /></Col>
+      <Col span="1">
+        <Button type="text" icon="md-refresh-circle" @click="info('circle-' + l.id)"></Button>
+      </Col>
+      <Col span="1">
+        <!--<Button type="text" icon="md-download" @click="getFile(l.id)"></Button> -->
+        <router-link :to="{path:'/api/v1/getfile',query:{id:l.id}}" target="_blank">
+          <Button type="text" icon="md-download"></Button>
+        </router-link>
+      </Col>
+      <Col span="1">
+        <Button type="text" icon="md-remove-circle" @click="info('remove')"></Button>
+      </Col>
+      <Col span="1">
+        <Button type="text" icon="md-play" @click="info('play')"></Button>
+      </Col>
     </Row>
  </div>
 </template>
@@ -39,6 +50,10 @@ export default {
     }
   },
   methods: {
+    info (msg) {
+      console.log(msg)
+      this.$Message.info(msg)
+    },
     asyncOK () {
       setTimeout(() => {
         this.modal1 = false
@@ -58,6 +73,10 @@ export default {
         }).catch(function (error) { // 请求失败处理
           console.log(error)
         })
+    },
+    getFile (id) {
+      console.log(id)
+      // router.go({name: 'api/v1/getfile', params: {id: id}})
     }
   },
   mounted () {
