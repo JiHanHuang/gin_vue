@@ -70,7 +70,8 @@ export default {
           console.log(response)
           console.log(response.data)
           this.list = response.data.data.list
-        }).catch(function (error) { // 请求失败处理
+        }).catch(error => { // 请求失败处理
+          this.$Message.error(error.response.data.data)
           console.log(error)
         })
     },
