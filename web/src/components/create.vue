@@ -27,6 +27,7 @@
 <script>
 import download from '@/components/download'
 import axios from 'axios'
+import event from '../libs/event.js'
 export default {
   props: ['selectType'],
   name: 'create',
@@ -82,6 +83,7 @@ export default {
           console.log(error)
         })
       this.modal1 = false
+      event.$emit('flashList', true)
     },
     getName () {
       var nn = this.addr.split('/')

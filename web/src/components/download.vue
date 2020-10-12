@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import event from '../libs/event.js'
 import axios from 'axios'
 export default {
   props: ['vueMsg', 'updateFlag'],
@@ -46,6 +47,7 @@ export default {
     return {
       timer: '',
       value: '',
+      getdata: true,
       list: []
     }
   },
@@ -64,6 +66,17 @@ export default {
       this.$Message.info('Clicked cancel')
     },
     getDownloadList () {
+      if (this.list != null) {
+        for (var i = 0; i < this.list.length; i++) {
+          if (this.list[i].percent < 100) {
+            this.getdata = true
+            break
+          }
+        }
+      }
+      if (!this.getdata) {
+        return
+      }
       axios
         .get('/api/v1/download/list')
         .then(response => {
@@ -74,6 +87,7 @@ export default {
           this.$Message.error(error.response.data.data)
           console.log(error)
         })
+      this.getdata = false
     },
     getFile (id) {
       console.log(id)
@@ -81,7 +95,14 @@ export default {
     }
   },
   mounted () {
+    this.getDownloadList()
+    event.$on('flashList', (val) => {
+      this.getdata = true
+    })
     this.timer = setInterval(this.getDownloadList, 2000)
+  },
+  destroyed () {
+    event.$off('flashList')
   },
   beforeDestroy () {
     clearInterval(this.timer)
