@@ -288,7 +288,49 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/download": {
+        "/api/v1/download/list": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "New"
+                ],
+                "summary": "DownloadListForm",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/app.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/download/local/file": {
+            "get": {
+                "tags": [
+                    "New"
+                ],
+                "summary": "getfile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/download/remote/file": {
             "post": {
                 "produces": [
                     "application/json"
@@ -323,32 +365,7 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/download/list": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "New"
-                ],
-                "summary": "DownloadListForm",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/app.Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/app.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/download/torrent": {
+        "/api/v1/download/remote/torrent": {
             "post": {
                 "produces": [
                     "application/json"
@@ -424,31 +441,6 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/getfile": {
-            "get": {
-                "tags": [
-                    "New"
-                ],
-                "summary": "getfile",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ID",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "octet-stream"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/post": {
             "post": {
                 "produces": [
@@ -482,6 +474,23 @@ var doc = `{
                         }
                     }
                 }
+            }
+        },
+        "/api/v1/show/files": {
+            "get": {
+                "tags": [
+                    "New"
+                ],
+                "summary": "walkdir",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "./",
+                        "name": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ]
             }
         },
         "/api/v1/tags": {
@@ -612,12 +621,12 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Import article tag",
+                "summary": "Import Image",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "Excel File",
-                        "name": "file",
+                        "description": "Image File",
+                        "name": "image",
                         "in": "formData",
                         "required": true
                     }
@@ -791,6 +800,9 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "type": {
                     "type": "string"
                 }
             }

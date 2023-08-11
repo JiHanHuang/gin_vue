@@ -66,3 +66,39 @@ func Tpost(c *gin.Context) {
 	}
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
+
+type TcheckForm struct {
+	Name     string `form:"name" valid:"Required;MaxSize(100)"`
+	Password string `form:"password" valid:"Required;MaxSize(100)"`
+}
+
+// @Tags Test
+// @Summary TcheckForm
+// @Produce  json
+// @Param post body TcheckForm false "post"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/post [post]
+func Tcheck(c *gin.Context) {
+	var (
+		appG = app.Gin{C: c}
+		form TcheckForm
+	)
+
+	httpCode, errCode := app.BindAndValid(c, &form)
+	if errCode != e.SUCCESS {
+		appG.Response(httpCode, errCode, nil)
+		return
+	}
+	d, err := json.Marshal(form)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	err = ioutil.WriteFile(testPath, d, 0644)
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
+		return
+	}
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}

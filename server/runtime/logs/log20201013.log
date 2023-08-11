@@ -1,0 +1,61 @@
+[INFO][main.go:46]2020/10/13 10:31:51 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 10:32:50  | 200 |     138.82µs |        127.0.0.1 |      GET | /api/v1/download/list
+[INFO][info.go:22]2020/10/13 10:32:51  | 200 |     36.839µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:138]2020/10/13 10:33:25 {1602556405205 t01e3f34d20600ec39c.jpg https://p1.ssl.qhimg.com/t01e3f34d20600ec39c.jpg ./runtime/ file}
+[DEBU][ftp.go:58]2020/10/13 10:33:25 FTP download....
+[DEBU][ftp.go:59]2020/10/13 10:33:25 &{{1602556405205 https://p1.ssl.qhimg.com/t01e3f34d20600ec39c.jpg ./runtime/ t01e3f34d20600ec39c.jpg 0} 0xc000390f00}
+
+[INFO][info.go:22]2020/10/13 10:33:25  | 200 |     261.44µs |        127.0.0.1 |     POST | /api/v1/download
+[DEBU][download.go:66]2020/10/13 10:33:27 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:33:27  | 200 |     83.056µs |        127.0.0.1 |      GET | /api/v1/download/list
+[INFO][info.go:22]2020/10/13 10:33:29  | 200 |    134.402µs |        127.0.0.1 |      GET | /api/v1/getfile
+[DEBU][download.go:66]2020/10/13 10:41:21 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:41:21  | 200 |     85.381µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:41:35 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:41:35  | 200 |     78.868µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:41:36 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:41:36  | 200 |     83.296µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:20 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:20  | 200 |     82.215µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:21 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:21  | 200 |     77.085µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:23 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:23  | 200 |     77.706µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:27 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:27  | 200 |     82.004µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:32 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:32  | 200 |     85.891µs |        127.0.0.1 |      GET | /api/v1/download/list
+[DEBU][download.go:66]2020/10/13 10:49:34 {1602556405205 t01e3f34d20600ec39c.jpg 100 success}
+[INFO][info.go:22]2020/10/13 10:49:34  | 200 |     78.027µs |        127.0.0.1 |      GET | /api/v1/download/list
+[INFO][main.go:46]2020/10/13 15:19:25 Start http server...    Port  8081
+[INFO][main.go:46]2020/10/13 15:19:50 Start http server...    Port  8081
+[INFO][main.go:46]2020/10/13 15:24:36 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:26:04  | 200 |    102.722µs |   182.150.63.121 |      GET | //api/v1/show/files
+[INFO][info.go:22]2020/10/13 15:26:22  | 200 |    116.278µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:28:11 Start http server...    Port  8081
+[INFO][main.go:46]2020/10/13 15:28:20 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:28:24  | 200 |    225.683µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:29:10 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:29:15  | 200 |     197.28µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:38:48 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:38:51  | 200 |    150.092µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][info.go:22]2020/10/13 15:38:54  | 200 |     31.299µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:39:27 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:39:31  | 200 |     165.05µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:42:14 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:42:17  | 200 |    134.673µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:42:46 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:42:49  | 200 |    127.138µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:43:47 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:43:51  | 200 |    133.831µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:44:13 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:44:17  | 200 |    265.257µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:45:25 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:45:28  | 200 |    164.238µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:46:05 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:46:07  | 200 |    175.559µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][info.go:22]2020/10/13 15:46:09  | 200 |     76.703µs |   182.150.63.121 |      GET | /api/v1/show/files
+[INFO][main.go:46]2020/10/13 15:49:22 Start http server...    Port  8081
+[INFO][info.go:22]2020/10/13 15:49:26  | 200 |    212.689µs |   182.150.63.121 |      GET | /api/v1/show/files
+[ERRO][walkdir.go:24]2020/10/13 15:49:37 open ./download/./kkk: no such file or directory
+[INFO][info.go:22]2020/10/13 15:49:37  | 200 |     75.902µs |   182.150.63.121 |      GET | /api/v1/show/files

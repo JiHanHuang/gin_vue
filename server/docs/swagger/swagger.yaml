@@ -18,6 +18,8 @@ definitions:
         type: integer
       name:
         type: string
+      type:
+        type: string
     type: object
   v1.TpostForm:
     properties:
@@ -207,7 +209,34 @@ paths:
           schema:
             $ref: '#/definitions/app.Response'
       summary: Update article
-  /api/v1/download:
+  /api/v1/download/list:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: DownloadListForm
+      tags:
+      - New
+  /api/v1/download/local/file:
+    get:
+      parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
+      summary: getfile
+      tags:
+      - New
+  /api/v1/download/remote/file:
     post:
       parameters:
       - description: Download
@@ -229,23 +258,7 @@ paths:
       summary: DownloadForm
       tags:
       - New
-  /api/v1/download/list:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/app.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/app.Response'
-      summary: DownloadListForm
-      tags:
-      - New
-  /api/v1/download/torrent:
+  /api/v1/download/remote/torrent:
     post:
       parameters:
       - description: Name
@@ -293,22 +306,6 @@ paths:
       summary: TorrentDownload
       tags:
       - Test
-  /api/v1/getfile:
-    get:
-      parameters:
-      - description: ID
-        in: query
-        name: id
-        required: true
-        type: string
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-      summary: getfile
-      tags:
-      - New
   /api/v1/post:
     post:
       parameters:
@@ -331,6 +328,17 @@ paths:
       summary: TpostForm
       tags:
       - Test
+  /api/v1/show/files:
+    get:
+      parameters:
+      - description: ./
+        in: query
+        name: path
+        required: true
+        type: string
+      summary: walkdir
+      tags:
+      - New
   /api/v1/tags:
     get:
       parameters:
@@ -468,9 +476,9 @@ paths:
   /api/v1/tags/import:
     post:
       parameters:
-      - description: Excel File
+      - description: Image File
         in: formData
-        name: file
+        name: image
         required: true
         type: file
       produces:
@@ -484,7 +492,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/app.Response'
-      summary: Import article tag
+      summary: Import Image
   /auth:
     get:
       parameters:

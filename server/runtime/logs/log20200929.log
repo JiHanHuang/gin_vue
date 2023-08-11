@@ -1,0 +1,13 @@
+[INFO][main.go:46]2020/09/29 16:40:30 Start http server...    Port  8000
+[INFO][main.go:46]2020/09/29 16:46:10 Start http server...    Port  8000
+[INFO][main.go:46]2020/09/29 16:46:48 Start http server...    Port  8081
+[DEBU][download.go:138]2020/09/29 16:50:36 {1601369436937 node-v14.12.0-x86.msi https://npm.taobao.org/mirrors/node/v14.12.0/node-v14.12.0-x86.msi ./runtime/ file}
+[DEBU][ftp.go:58]2020/09/29 16:50:36 FTP download....
+[DEBU][ftp.go:59]2020/09/29 16:50:36 &{{1601369436937 https://npm.taobao.org/mirrors/node/v14.12.0/node-v14.12.0-x86.msi ./runtime/ node-v14.12.0-x86.msi 0} 0xc0003900c0}
+
+[INFO][info.go:22]2020/09/29 16:50:36  | 200 |    291.366µs |        127.0.0.1 |     POST | /api/v1/download
+[DEBU][download.go:138]2020/09/29 16:56:47 {1601369807223 node-v14.12.0-x86.msi https://npm.taobao.org/mirrors/node/v14.12.0/node-v14.12.0-x86.msi ./runtime/ file}
+[DEBU][ftp.go:58]2020/09/29 16:56:47 FTP download....
+[DEBU][ftp.go:59]2020/09/29 16:56:47 &{{1601369807223 https://npm.taobao.org/mirrors/node/v14.12.0/node-v14.12.0-x86.msi ./runtime/ node-v14.12.0-x86.msi 0} 0xc000390120}
+
+[INFO][info.go:22]2020/09/29 16:56:47  | 200 |    167.444µs |        127.0.0.1 |     POST | /api/v1/download

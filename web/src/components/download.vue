@@ -23,7 +23,7 @@
       </Col>
       <Col span="1">
         <!--<Button type="text" icon="md-download" @click="getFile(l.id)"></Button> -->
-        <router-link :to="{path:'/api/v1/getfile',query:{id:l.id}}" target="_blank">
+        <router-link :to="{path:'/download/local/file',query:{id:l.id}}" target="_blank">
           <Button type="text" icon="md-download"></Button>
         </router-link>
       </Col>

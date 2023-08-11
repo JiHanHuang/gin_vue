@@ -15,6 +15,7 @@ import (
 
 	"github.com/JiHanHuang/gin_vue/pkg/app"
 	"github.com/JiHanHuang/gin_vue/pkg/e"
+	"github.com/JiHanHuang/gin_vue/pkg/setting"
 	"github.com/JiHanHuang/gin_vue/service/download_service"
 	"github.com/JiHanHuang/gin_vue/service/torrent_service"
 )
@@ -83,8 +84,8 @@ type TorrentDownloadForm struct {
 // @Param id body int false "ID"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /api/v1/download/torrent [post]
-func TorrentDownload(c *gin.Context) {
+// @Router /api/v1/download/remote/torrent [post]
+func RemoteDownloadTorrent(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
 		form TorrentDownloadForm
@@ -123,8 +124,8 @@ type DownloadForm struct {
 // @Param download body DownloadForm false "Download"
 // @Success 200 {object} app.Response
 // @Failure 500 {object} app.Response
-// @Router /api/v1/download [post]
-func Download(c *gin.Context) {
+// @Router /api/v1/download/remote/file [post]
+func RemoteDownloadFile(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
 		form DownloadForm
@@ -136,10 +137,11 @@ func Download(c *gin.Context) {
 		return
 	}
 	logging.Debug(form)
+	// default is ./download/<form.DownloadPath>
+	DownloadRealPath := setting.AppSetting.DownloadSavePath + form.DownloadPath
 	switch form.Type {
 	case "thunder":
 		split := strings.SplitN(form.Addr, "thunder://", 2)
-		logging.Debug("xxxxxxxxxxx", len(split))
 		if len(split) < 2 {
 			appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, "invaild input")
 			return
@@ -160,7 +162,7 @@ func Download(c *gin.Context) {
 		if downFile == "" || len(downFile) <= 0 {
 			downFile = util.RandString(8)
 		}
-		ftp := download_service.InitDownload(form.ID, addr, form.DownloadPath, downFile)
+		ftp := download_service.InitDownload(form.ID, addr, DownloadRealPath, downFile)
 		if err := ftp.DownloadFile(); err != nil {
 			appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
 			return
@@ -172,7 +174,7 @@ func Download(c *gin.Context) {
 		if downFile == "" || len(downFile) <= 0 {
 			downFile = util.RandString(8)
 		}
-		ftp := download_service.InitDownload(form.ID, form.Addr, form.DownloadPath, downFile)
+		ftp := download_service.InitDownload(form.ID, form.Addr, DownloadRealPath, downFile)
 		if err := ftp.DownloadFile(); err != nil {
 			appG.Response(http.StatusInternalServerError, e.ERROR, err.Error())
 			return
@@ -187,8 +189,8 @@ func Download(c *gin.Context) {
 // @Tags New
 // @Summary getfile
 // @Param id query string true "ID"
-// @Router /api/v1/getfile [get]
-func GetFile(c *gin.Context) {
+// @Router /api/v1/download/local/file [get]
+func LocalDownloadFile(c *gin.Context) {
 	appG := app.Gin{C: c}
 	idstr := c.Query("id")
 	id, err := strconv.Atoi(idstr)

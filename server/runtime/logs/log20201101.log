@@ -1,0 +1,5 @@
+[INFO][main.go:46]2020/11/01 11:37:01 Start http server...    Port  8081
+[INFO][info.go:22]2020/11/01 11:38:54  | 200 |    137.367µs |        127.0.0.1 |      GET | /api/v1/download/list
+[INFO][info.go:22]2020/11/01 11:38:56  | 200 |     35.356µs |        127.0.0.1 |      GET | /api/v1/download/list
+[INFO][main.go:46]2020/11/01 11:41:12 Start http server...    Port  8081
+[INFO][info.go:22]2020/11/01 11:41:21  | 200 |    139.191µs |        127.0.0.1 |      GET | /api/v1/download/list

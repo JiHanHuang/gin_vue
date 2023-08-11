@@ -14,9 +14,10 @@ type App struct {
 
 	RuntimeRootPath string
 
-	ImageSavePath  string
-	ImageMaxSize   int
-	ImageAllowExts []string
+	ImageSavePath    string
+	ImageMaxSize     int
+	ImageAllowExts   []string
+	DownloadSavePath string
 
 	ExportSavePath string
 	QrCodeSavePath string

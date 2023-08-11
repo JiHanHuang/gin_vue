@@ -37,11 +37,14 @@ func InitRouter() *gin.Engine {
 	{
 
 		//download
-		apiv1.POST("/download/torrent", v1.TorrentDownload)
-		apiv1.POST("/download", v1.Download)
+		apiv1.POST("/download/remote/torrent", v1.RemoteDownloadTorrent)
+		apiv1.POST("/download/remote/file", v1.RemoteDownloadFile)
+		//remote download list
 		apiv1.GET("/download/list", v1.GetDownloadList)
 		//get file from server
-		apiv1.GET("/getfile", v1.GetFile)
+		apiv1.GET("/download/local/file", v1.LocalDownloadFile)
+		// show
+		apiv1.GET("/show/files", v1.ShowFiles)
 		//test
 		apiv1.POST("/post", v1.Tpost)
 		apiv1.GET("/get", v1.Tget)

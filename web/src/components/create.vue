@@ -68,9 +68,9 @@ export default {
     },
     create () {
       axios
-        .post('/api/v1/download', {
+        .post('/api/v1/download/remote/file', {
           addr: this.addr,
-          downloadPath: './runtime/',
+          downloadPath: './',
           id: (new Date()).valueOf(),
           name: this.name,
           type: this.model2
